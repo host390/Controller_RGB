@@ -3,7 +3,7 @@
 #include <Arduino.h>
 #include "PWM.h"
 
-#define ALLOW_ANYPWM 0		// (0 / 1) - включить или отключить ANYPWM
+#define ALLOW_ANYPWM 0 // (0 / 1) - включить или отключить ANYPWM
 // необходимо отключить, если этот режим не нужен и вы сами используете прерывания timer2 (COMPA_vect)
 
 /*	
@@ -32,36 +32,36 @@
 class GRGB
 {
   public:  
-	GRGB(uint8_t rpin, uint8_t gpin, uint8_t bpin);						// объявление
-	
-	GRGB(uint8_t rpin, uint8_t gpin, uint8_t bpin, boolean pwmmode);	// объявление с выбором режима генерации ШИМ (NORM_PWM / ANY_PWM)
-																		// NORM_PWM - дефолтные ШИМ пины (3, 5, 6, 9, 10, 11 для UNO/NANO/MINI)
-																		// ANY_PWM - любой пин делается ШИМ пином (частота ~150 Гц). Подробности в библиотеке GyverHacks
+	GRGB(uint8_t rpin, uint8_t gpin, uint8_t bpin); // объявление
+	// объявление с выбором режима генерации ШИМ (NORM_PWM / ANY_PWM)
+	GRGB(uint8_t rpin, uint8_t gpin, uint8_t bpin, boolean pwmmode);	
+	// NORM_PWM - дефолтные ШИМ пины (3, 5, 6, 9, 10, 11 для UNO/NANO/MINI)
+	// ANY_PWM - любой пин делается ШИМ пином (частота ~150 Гц). Подробности в библиотеке GyverHacks
 																		
-	void highFrequency(long frequency);					// режим работы на высокой частоте ШИМ (указать в Герцах). Работает с библиотекой PWM.h
+	void highFrequency(long frequency); // режим работы на высокой частоте ШИМ (указать в Герцах). Работает с библиотекой PWM.h
 	
-	void setDirection(boolean direction);				// NORMAL / REVERSE - направление ШИМ
-														// общий катод - NORMAL
-														// общий анод - REVERSE
+	void setDirection(boolean direction); // NORMAL / REVERSE - направление ШИМ
+	// общий катод - NORMAL
+	// общий анод - REVERSE
 														
 	void setMaxCurrent(uint16_t numLeds, float vcc, int maxCur);	// установка ограничения по току: 
-																	// количество светодиодов
-																	// напряжение питания в милливольтах
-																	// максимальный ток
+	// количество светодиодов
+	// напряжение питания в милливольтах
+	// максимальный ток
 																	
-	void setBrightness(byte bright);					// установка яркости (0-255)
-	void setGammaBright(boolean val);					// вкл/выкл коррекции яркости
-	void setMinPWM(byte val);							// минимальный сигнал PWM
-	void setLUT(float rc, float gc, float bc);			// установка коррекции цвета (матрица LUT)
-	void constantBrightTick(int minVolts, int vcc);		// корректировка под напряжение питания
-	void gammaTick(int vcc);							// корректировка красного цвета при падении напряжения питания
-													
-	void setHEX(uint32_t color);						// установка цвета в формате HEX (вида 0x808080 )
-	void setRGB(uint8_t r, uint8_t g, uint8_t b);		// установка цвета в пространстве RGB (каждый цвет 0-255)
-	void setHSV(uint8_t h, uint8_t s, uint8_t v);		// установка цвета в пространстве HSV (каждая велиична 0-255)
+	void setBrightness(byte bright); // установка яркости (0-255)
+	void setGammaBright(boolean val); // вкл/выкл коррекции яркости
+	void setMinPWM(byte val); // минимальный сигнал PWM
+	void setLUT(float rc, float gc, float bc); // установка коррекции цвета (матрица LUT)
+	void constantBrightTick(int minVolts, int vcc); // корректировка под напряжение питания
+	void gammaTick(int vcc); // корректировка красного цвета при падении напряжения питания
+
+	void setHEX(uint32_t color); // установка цвета в формате HEX (вида 0x808080 )
+	void setRGB(uint8_t r, uint8_t g, uint8_t b); // установка цвета в пространстве RGB (каждый цвет 0-255)
+	void setHSV(uint8_t h, uint8_t s, uint8_t v); // установка цвета в пространстве HSV (каждая велиична 0-255)
 	void setHSV_fast(uint8_t h, uint8_t s, uint8_t v);	// более быстрый, но менее красивый вариант предыдущей функции
-	void setKelvin(int16_t temperature);				// установить цвет как температуру в Кельвинах (от 1000 до 10'000 - от красного к синему)
-	void colorWheel(int color);							// установить цвет (0 - 1530). Максимально широкая палитра ярких цветов (смеси RGB)
+	void setKelvin(int16_t temperature); // установить цвет как температуру в Кельвинах (от 1000 до 10'000 - от красного к синему)
+	void colorWheel(int color); // установить цвет (0 - 1530). Максимально широкая палитра ярких цветов (смеси RGB)
 	
 	// плавно изменить текущий цвет к новому за вермя fadeTime в миллисекундах
 	// для HEX цвета
@@ -70,7 +70,7 @@ class GRGB
 	// для R G B
 	void fadeTo(uint8_t new_r, uint8_t new_g, uint8_t new_b, uint16_t fadeTime);
 	
-	byte showR, showG, showB;		// сигнал для отладки
+	byte showR, showG, showB; // сигнал для отладки
 	
   private:
 	void setRGB();
